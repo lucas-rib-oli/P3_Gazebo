@@ -1,6 +1,6 @@
-<sdf version="1.4">
-  <world name="default">
-    <light name="sun" type="directional">
+<sdf version='1.6'>
+  <world name='default'>
+    <light name='sun' type='directional'>
       <cast_shadows>1</cast_shadows>
       <diffuse>0.8 0.8 0.8 1</diffuse>
       <specular>0.1 0.1 0.1 1</specular>
@@ -12,1730 +12,4263 @@
       </attenuation>
       <direction>-0.5 0.5 -1</direction>
     </light>
-    <include>
-      <uri>model://pioneer</uri>
-      <pose>1.45 1.6 0 0 0 0</pose>
-      <plugin name="model_push" filename="libmodel_push.so"/>
-    </include>
-    <model name="floor">
-      <pose>7.0 8.0 -0.0625 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>14.0 16.0 0.125</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>14.0 16.0 0.125</size>
-            </box>
-          </geometry>
-        </visual>
-      </link>
-    </model>
-    <model name="box_0_0">
-      <pose>0.5 0.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>1.0 1.0 1.0</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>1.0 1.0 1.0</size>
-            </box>
-          </geometry>
-        </visual>
-      </link>
-    </model>
-    <model name="box_0_1">
-      <pose>0.5 1.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>1.0 1.0 1.0</size>
+    <model name='pioneer'>
+      <link name='chassis'>
+        <pose frame=''>0 0 0.16 0 -0 0</pose>
+        <inertial>
+          <mass>5.67</mass>
+          <inertia>
+            <ixx>0.07</ixx>
+            <iyy>0.08</iyy>
+            <izz>0.1</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.445 0.277 0.17</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <collision name='castor_collision'>
+          <pose frame=''>-0.2 0 -0.12 0 -0 0</pose>
+          <geometry>
+            <sphere>
+              <radius>0.04</radius>
+            </sphere>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>0</mu>
+                <mu2>0</mu2>
+                <slip1>1</slip1>
+                <slip2>1</slip2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <pose frame=''>0 0 0.04 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>model://pioneer/meshes/chassis.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <visual name='castor_visual'>
+          <pose frame=''>-0.2 0 -0.12 0 -0 0</pose>
+          <geometry>
+            <sphere>
+              <radius>0.04</radius>
+            </sphere>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/FlatBlack</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <link name='right_wheel'>
+        <pose frame=''>0.1 -0.17 0.11 -0 1.5707 1.5707</pose>
+        <inertial>
+          <mass>1.5</mass>
+          <inertia>
+            <ixx>0.0051</ixx>
+            <iyy>0.0051</iyy>
+            <izz>0.009</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.11</radius>
+              <length>0.05</length>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>100000</mu>
+                <mu2>100000</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.11</radius>
+              <length>0.05</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/FlatBlack</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <link name='left_wheel'>
+        <pose frame=''>0.1 0.17 0.11 -0 1.5707 1.5707</pose>
+        <inertial>
+          <mass>1.5</mass>
+          <inertia>
+            <ixx>0.0051</ixx>
+            <iyy>0.0051</iyy>
+            <izz>0.009</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.11</radius>
+              <length>0.05</length>
+            </cylinder>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>100000</mu>
+                <mu2>100000</mu2>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.11</radius>
+              <length>0.05</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/FlatBlack</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='left_wheel_hinge' type='revolute'>
+        <pose frame=''>0 0 -0.03 0 -0 0</pose>
+        <child>left_wheel</child>
+        <parent>chassis</parent>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <use_parent_model_frame>1</use_parent_model_frame>
+          <limit>
+            <lower>-1e+16</lower>
+            <upper>1e+16</upper>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <joint name='right_wheel_hinge' type='revolute'>
+        <pose frame=''>0 0 0.03 0 -0 0</pose>
+        <child>right_wheel</child>
+        <parent>chassis</parent>
+        <axis>
+          <xyz>0 1 0</xyz>
+          <use_parent_model_frame>1</use_parent_model_frame>
+          <limit>
+            <lower>-1e+16</lower>
+            <upper>1e+16</upper>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <pose frame=''>1.45 1.6 0 0 -0 0</pose>
+      <plugin name='model_push' filename='libmodel_push.so'/>
+    </model>
+    <model name='floor'>
+      <pose frame=''>7 8 -0.0625 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>14 16 0.125</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>14 16 0.125</size>
+            </box>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='box_0_0'>
+      <pose frame=''>0.5 0.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 1</size>
+            </box>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='box_0_1'>
+      <pose frame=''>0.5 1.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 1</size>
+            </box>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='box_0_2'>
+      <pose frame=''>0.5 2.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 1</size>
+            </box>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='box_0_3'>
+      <pose frame=''>0.5 3.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
-          </geometry>
-        </visual>
-      </link>
-    </model>
-    <model name="box_0_2">
-      <pose>0.5 2.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>1.0 1.0 1.0</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>1.0 1.0 1.0</size>
-            </box>
-          </geometry>
-        </visual>
-      </link>
-    </model>
-    <model name="box_0_3">
-      <pose>0.5 3.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>1.0 1.0 1.0</size>
-            </box>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>1.0 1.0 1.0</size>
-            </box>
-          </geometry>
-        </visual>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_0_4">
-      <pose>0.5 4.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_0_4'>
+      <pose frame=''>0.5 4.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_0_5">
-      <pose>0.5 5.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_0_5'>
+      <pose frame=''>0.5 5.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_0_6">
-      <pose>0.5 6.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_0_6'>
+      <pose frame=''>0.5 6.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_0_7">
-      <pose>0.5 7.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_0_7'>
+      <pose frame=''>0.5 7.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_0_8">
-      <pose>0.5 8.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_0_8'>
+      <pose frame=''>0.5 8.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_0_9">
-      <pose>0.5 9.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_0_9'>
+      <pose frame=''>0.5 9.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_0_10">
-      <pose>0.5 10.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_0_10'>
+      <pose frame=''>0.5 10.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_0_11">
-      <pose>0.5 11.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_0_11'>
+      <pose frame=''>0.5 11.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_0_12">
-      <pose>0.5 12.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_0_12'>
+      <pose frame=''>0.5 12.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_0_13">
-      <pose>0.5 13.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_0_13'>
+      <pose frame=''>0.5 13.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_0_14">
-      <pose>0.5 14.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_0_14'>
+      <pose frame=''>0.5 14.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_0_15">
-      <pose>0.5 15.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_0_15'>
+      <pose frame=''>0.5 15.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_1_0">
-      <pose>1.5 0.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_1_0'>
+      <pose frame=''>1.5 0.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_1_15">
-      <pose>1.5 15.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_1_15'>
+      <pose frame=''>1.5 15.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_2_0">
-      <pose>2.5 0.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_2_0'>
+      <pose frame=''>2.5 0.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_2_8">
-      <pose>2.5 8.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_2_8'>
+      <pose frame=''>2.5 8.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_2_15">
-      <pose>2.5 15.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_2_15'>
+      <pose frame=''>2.5 15.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_3_0">
-      <pose>3.5 0.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_3_0'>
+      <pose frame=''>3.5 0.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_3_8">
-      <pose>3.5 8.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_3_8'>
+      <pose frame=''>3.5 8.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_3_10">
-      <pose>3.5 10.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_3_10'>
+      <pose frame=''>3.5 10.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_3_13">
-      <pose>3.5 13.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_3_13'>
+      <pose frame=''>3.5 13.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_3_14">
-      <pose>3.5 14.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_3_14'>
+      <pose frame=''>3.5 14.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_3_15">
-      <pose>3.5 15.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_3_15'>
+      <pose frame=''>3.5 15.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_4_0">
-      <pose>4.5 0.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_4_0'>
+      <pose frame=''>4.5 0.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_4_1">
-      <pose>4.5 1.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_4_1'>
+      <pose frame=''>4.5 1.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_4_2">
-      <pose>4.5 2.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_4_2'>
+      <pose frame=''>4.5 2.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_4_3">
-      <pose>4.5 3.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_4_3'>
+      <pose frame=''>4.5 3.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_4_10">
-      <pose>4.5 10.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_4_10'>
+      <pose frame=''>4.5 10.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_4_13">
-      <pose>4.5 13.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_4_13'>
+      <pose frame=''>4.5 13.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_4_15">
-      <pose>4.5 15.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_4_15'>
+      <pose frame=''>4.5 15.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_5_0">
-      <pose>5.5 0.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_5_0'>
+      <pose frame=''>5.5 0.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_5_1">
-      <pose>5.5 1.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_5_1'>
+      <pose frame=''>5.5 1.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_5_2">
-      <pose>5.5 2.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_5_2'>
+      <pose frame=''>5.5 2.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_5_3">
-      <pose>5.5 3.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_5_3'>
+      <pose frame=''>5.5 3.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_5_5">
-      <pose>5.5 5.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_5_5'>
+      <pose frame=''>5.5 5.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_5_7">
-      <pose>5.5 7.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_5_7'>
+      <pose frame=''>5.5 7.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_5_13">
-      <pose>5.5 13.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_5_13'>
+      <pose frame=''>5.5 13.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_5_15">
-      <pose>5.5 15.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_5_15'>
+      <pose frame=''>5.5 15.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_6_0">
-      <pose>6.5 0.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_6_0'>
+      <pose frame=''>6.5 0.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_6_9">
-      <pose>6.5 9.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_6_9'>
+      <pose frame=''>6.5 9.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_6_15">
-      <pose>6.5 15.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_6_15'>
+      <pose frame=''>6.5 15.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_7_0">
-      <pose>7.5 0.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_7_0'>
+      <pose frame=''>7.5 0.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_7_9">
-      <pose>7.5 9.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_7_9'>
+      <pose frame=''>7.5 9.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_7_15">
-      <pose>7.5 15.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_7_15'>
+      <pose frame=''>7.5 15.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_8_0">
-      <pose>8.5 0.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_8_0'>
+      <pose frame=''>8.5 0.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_8_5">
-      <pose>8.5 5.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_8_5'>
+      <pose frame=''>8.5 5.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_8_6">
-      <pose>8.5 6.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_8_6'>
+      <pose frame=''>8.5 6.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_8_7">
-      <pose>8.5 7.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_8_7'>
+      <pose frame=''>8.5 7.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_8_13">
-      <pose>8.5 13.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_8_13'>
+      <pose frame=''>8.5 13.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_8_14">
-      <pose>8.5 14.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_8_14'>
+      <pose frame=''>8.5 14.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_8_15">
-      <pose>8.5 15.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_8_15'>
+      <pose frame=''>8.5 15.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_9_0">
-      <pose>9.5 0.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_9_0'>
+      <pose frame=''>9.5 0.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_9_15">
-      <pose>9.5 15.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_9_15'>
+      <pose frame=''>9.5 15.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_10_0">
-      <pose>10.5 0.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_10_0'>
+      <pose frame=''>10.5 0.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_10_2">
-      <pose>10.5 2.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_10_2'>
+      <pose frame=''>10.5 2.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_10_9">
-      <pose>10.5 9.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_10_9'>
+      <pose frame=''>10.5 9.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_10_10">
-      <pose>10.5 10.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_10_10'>
+      <pose frame=''>10.5 10.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_10_12">
-      <pose>10.5 12.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_10_12'>
+      <pose frame=''>10.5 12.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_10_15">
-      <pose>10.5 15.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_10_15'>
+      <pose frame=''>10.5 15.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_11_0">
-      <pose>11.5 0.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_11_0'>
+      <pose frame=''>11.5 0.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_11_2">
-      <pose>11.5 2.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_11_2'>
+      <pose frame=''>11.5 2.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_11_10">
-      <pose>11.5 10.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_11_10'>
+      <pose frame=''>11.5 10.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_11_15">
-      <pose>11.5 15.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_11_15'>
+      <pose frame=''>11.5 15.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_12_0">
-      <pose>12.5 0.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_12_0'>
+      <pose frame=''>12.5 0.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_12_15">
-      <pose>12.5 15.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_12_15'>
+      <pose frame=''>12.5 15.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_13_0">
-      <pose>13.5 0.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_13_0'>
+      <pose frame=''>13.5 0.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_13_1">
-      <pose>13.5 1.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_13_1'>
+      <pose frame=''>13.5 1.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_13_2">
-      <pose>13.5 2.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_13_2'>
+      <pose frame=''>13.5 2.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_13_3">
-      <pose>13.5 3.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_13_3'>
+      <pose frame=''>13.5 3.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_13_4">
-      <pose>13.5 4.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_13_4'>
+      <pose frame=''>13.5 4.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_13_5">
-      <pose>13.5 5.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_13_5'>
+      <pose frame=''>13.5 5.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_13_6">
-      <pose>13.5 6.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_13_6'>
+      <pose frame=''>13.5 6.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_13_7">
-      <pose>13.5 7.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_13_7'>
+      <pose frame=''>13.5 7.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_13_8">
-      <pose>13.5 8.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_13_8'>
+      <pose frame=''>13.5 8.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_13_9">
-      <pose>13.5 9.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_13_9'>
+      <pose frame=''>13.5 9.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_13_10">
-      <pose>13.5 10.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_13_10'>
+      <pose frame=''>13.5 10.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_13_11">
-      <pose>13.5 11.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_13_11'>
+      <pose frame=''>13.5 11.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_13_12">
-      <pose>13.5 12.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_13_12'>
+      <pose frame=''>13.5 12.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_13_13">
-      <pose>13.5 13.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_13_13'>
+      <pose frame=''>13.5 13.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_13_14">
-      <pose>13.5 14.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_13_14'>
+      <pose frame=''>13.5 14.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
-    <model name="box_13_15">
-      <pose>13.5 15.5 0.5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
+    <model name='box_13_15'>
+      <pose frame=''>13.5 15.5 0.5 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
         </collision>
-        <visual name="visual">
+        <visual name='visual'>
           <geometry>
             <box>
-              <size>1.0 1.0 1.0</size>
+              <size>1 1 1</size>
             </box>
           </geometry>
         </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
       </link>
     </model>
+    <gravity>0 0 -9.8</gravity>
+    <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
+    <atmosphere type='adiabatic'/>
+    <physics name='default_physics' default='0' type='ode'>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+    <scene>
+      <ambient>0.4 0.4 0.4 1</ambient>
+      <background>0.7 0.7 0.7 1</background>
+      <shadows>1</shadows>
+    </scene>
+    <audio>
+      <device>default</device>
+    </audio>
+    <wind/>
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <latitude_deg>0</latitude_deg>
+      <longitude_deg>0</longitude_deg>
+      <elevation>0</elevation>
+      <heading_deg>0</heading_deg>
+    </spherical_coordinates>
+    <state world_name='default'>
+      <sim_time>0 0</sim_time>
+      <real_time>0 0</real_time>
+      <wall_time>1646147810 246182155</wall_time>
+      <iterations>0</iterations>
+      <model name='box_0_0'>
+        <pose frame=''>0.5 0.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>0.5 0.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_0_1'>
+        <pose frame=''>0.5 1.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>0.5 1.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_0_10'>
+        <pose frame=''>0.5 10.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>0.5 10.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_0_11'>
+        <pose frame=''>0.5 11.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>0.5 11.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_0_12'>
+        <pose frame=''>0.5 12.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>0.5 12.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_0_13'>
+        <pose frame=''>0.5 13.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>0.5 13.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_0_14'>
+        <pose frame=''>0.5 14.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>0.5 14.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_0_15'>
+        <pose frame=''>0.5 15.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>0.5 15.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_0_2'>
+        <pose frame=''>0.5 2.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>0.5 2.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_0_3'>
+        <pose frame=''>0.5 3.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>0.5 3.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_0_4'>
+        <pose frame=''>0.5 4.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>0.5 4.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_0_5'>
+        <pose frame=''>0.5 5.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>0.5 5.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_0_6'>
+        <pose frame=''>0.5 6.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>0.5 6.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_0_7'>
+        <pose frame=''>0.5 7.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>0.5 7.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_0_8'>
+        <pose frame=''>0.5 8.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>0.5 8.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_0_9'>
+        <pose frame=''>0.5 9.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>0.5 9.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_10_0'>
+        <pose frame=''>10.5 0.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>10.5 0.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_10_10'>
+        <pose frame=''>10.5 10.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>10.5 10.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_10_12'>
+        <pose frame=''>10.5 12.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>10.5 12.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_10_15'>
+        <pose frame=''>10.5 15.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>10.5 15.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_10_2'>
+        <pose frame=''>10.5 2.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>10.5 2.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_10_9'>
+        <pose frame=''>10.5 9.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>10.5 9.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_11_0'>
+        <pose frame=''>11.5 0.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>11.5 0.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_11_10'>
+        <pose frame=''>11.5 10.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>11.5 10.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_11_15'>
+        <pose frame=''>11.5 15.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>11.5 15.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_11_2'>
+        <pose frame=''>11.5 2.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>11.5 2.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_12_0'>
+        <pose frame=''>12.5 0.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>12.5 0.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_12_15'>
+        <pose frame=''>12.5 15.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>12.5 15.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_13_0'>
+        <pose frame=''>13.5 0.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>13.5 0.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_13_1'>
+        <pose frame=''>13.5 1.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>13.5 1.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_13_10'>
+        <pose frame=''>13.5 10.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>13.5 10.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_13_11'>
+        <pose frame=''>13.5 11.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>13.5 11.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_13_12'>
+        <pose frame=''>13.5 12.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>13.5 12.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_13_13'>
+        <pose frame=''>13.5 13.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>13.5 13.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_13_14'>
+        <pose frame=''>13.5 14.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>13.5 14.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_13_15'>
+        <pose frame=''>13.5 15.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>13.5 15.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_13_2'>
+        <pose frame=''>13.5 2.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>13.5 2.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_13_3'>
+        <pose frame=''>13.5 3.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>13.5 3.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_13_4'>
+        <pose frame=''>13.5 4.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>13.5 4.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_13_5'>
+        <pose frame=''>13.5 5.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>13.5 5.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_13_6'>
+        <pose frame=''>13.5 6.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>13.5 6.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_13_7'>
+        <pose frame=''>13.5 7.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>13.5 7.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_13_8'>
+        <pose frame=''>13.5 8.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>13.5 8.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_13_9'>
+        <pose frame=''>13.5 9.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>13.5 9.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_1_0'>
+        <pose frame=''>1.5 0.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>1.5 0.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_1_15'>
+        <pose frame=''>1.5 15.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>1.5 15.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_2_0'>
+        <pose frame=''>2.5 0.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>2.5 0.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_2_15'>
+        <pose frame=''>2.5 15.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>2.5 15.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_2_8'>
+        <pose frame=''>2.5 8.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>2.5 8.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_3_0'>
+        <pose frame=''>3.5 0.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>3.5 0.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_3_10'>
+        <pose frame=''>3.5 10.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>3.5 10.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_3_13'>
+        <pose frame=''>3.5 13.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>3.5 13.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_3_14'>
+        <pose frame=''>3.5 14.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>3.5 14.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_3_15'>
+        <pose frame=''>3.5 15.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>3.5 15.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_3_8'>
+        <pose frame=''>3.5 8.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>3.5 8.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_4_0'>
+        <pose frame=''>4.5 0.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>4.5 0.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_4_1'>
+        <pose frame=''>4.5 1.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>4.5 1.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_4_10'>
+        <pose frame=''>4.5 10.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>4.5 10.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_4_13'>
+        <pose frame=''>4.5 13.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>4.5 13.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_4_15'>
+        <pose frame=''>4.5 15.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>4.5 15.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_4_2'>
+        <pose frame=''>4.5 2.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>4.5 2.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_4_3'>
+        <pose frame=''>4.5 3.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>4.5 3.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_5_0'>
+        <pose frame=''>5.5 0.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>5.5 0.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_5_1'>
+        <pose frame=''>5.5 1.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>5.5 1.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_5_13'>
+        <pose frame=''>5.5 13.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>5.5 13.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_5_15'>
+        <pose frame=''>5.5 15.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>5.5 15.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_5_2'>
+        <pose frame=''>5.5 2.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>5.5 2.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_5_3'>
+        <pose frame=''>5.5 3.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>5.5 3.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_5_5'>
+        <pose frame=''>5.5 5.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>5.5 5.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_5_7'>
+        <pose frame=''>5.5 7.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>5.5 7.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_6_0'>
+        <pose frame=''>6.5 0.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>6.5 0.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_6_15'>
+        <pose frame=''>6.5 15.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>6.5 15.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_6_9'>
+        <pose frame=''>6.5 9.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>6.5 9.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_7_0'>
+        <pose frame=''>7.5 0.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>7.5 0.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_7_15'>
+        <pose frame=''>7.5 15.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>7.5 15.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_7_9'>
+        <pose frame=''>7.5 9.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>7.5 9.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_8_0'>
+        <pose frame=''>8.5 0.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>8.5 0.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_8_13'>
+        <pose frame=''>8.5 13.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>8.5 13.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_8_14'>
+        <pose frame=''>8.5 14.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>8.5 14.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_8_15'>
+        <pose frame=''>8.5 15.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>8.5 15.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_8_5'>
+        <pose frame=''>8.5 5.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>8.5 5.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_8_6'>
+        <pose frame=''>8.5 6.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>8.5 6.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_8_7'>
+        <pose frame=''>8.5 7.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>8.5 7.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_9_0'>
+        <pose frame=''>9.5 0.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>9.5 0.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='box_9_15'>
+        <pose frame=''>9.5 15.5 0.5 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>9.5 15.5 0.5 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='floor'>
+        <pose frame=''>7 8 -0.0625 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>7 8 -0.0625 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='pioneer'>
+        <pose frame=''>1.45 1.6 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='chassis'>
+          <pose frame=''>1.45 1.6 0.16 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='left_wheel'>
+          <pose frame=''>1.55 1.77 0.11 -0 1.5707 1.5707</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='right_wheel'>
+          <pose frame=''>1.55 1.43 0.11 -0 1.5707 1.5707</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <light name='sun'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+      </light>
+    </state>
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose frame=''>21.0109 22.1997 26.3856 -0 0.923643 -2.47899</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
   </world>
 </sdf>

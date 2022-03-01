@@ -9,6 +9,8 @@
 /home/lsi/UC3M/Simuladores_de_Robots/P3_Gazebo/model_push_g9/model_push.cc
 functional
 -
+vector
+-
 gazebo/gazebo.hh
 -
 gazebo/physics/physics.hh
