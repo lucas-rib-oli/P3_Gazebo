@@ -11,6 +11,10 @@ functional
 -
 vector
 -
+stdio.h
+-
+unistd.h
+-
 gazebo/gazebo.hh
 -
 gazebo/physics/physics.hh
