@@ -86,6 +86,7 @@ public:
             }
 
             this->path_points.erase ( this->path_points.begin() ); // Remove start point
+            // ----------------------------------------------------------- //
 		}
 		else
 		{

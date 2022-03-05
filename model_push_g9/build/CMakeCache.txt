@@ -586,6 +586,9 @@ pkgcfg_lib_OGRE_PKGC_pthread:FILEPATH=/usr/lib/x86_64-linux-gnu/libpthread.so
 //Path to a library.
 pkgcfg_lib_UUID_uuid:FILEPATH=/usr/lib/x86_64-linux-gnu/libuuid.so
 
+//The directory containing a CMake configuration file for yarp.
+yarp_DIR:PATH=yarp_DIR-NOTFOUND
+
 
 ########################
 # INTERNAL cache entries
