@@ -17,12 +17,32 @@
 
 #include <functional>
 #include <vector>
+#include <memory>
 #include <stdio.h>
 #include <unistd.h>
 #include <gazebo/gazebo.hh>
 #include <gazebo/physics/physics.hh>
 #include <gazebo/common/common.hh>
 #include <ignition/math/Vector3.hh>
+#include <gazebo/sensors/sensors.hh>
+
+#include <gazebo/transport/transport.hh>
+#include <gazebo/msgs/msgs.hh>
+#include <gazebo/gazebo_client.hh>
+
+#include <ignition/msgs.hh>
+#include <ignition/transport/Node.hh>
+
+#include "gazebo/common/Plugin.hh"
+#include "gazebo/physics/World.hh"
+#include "gazebo/transport/Node.hh"
+
+
+void cb(ConstLaserScanStampedPtr & _msg)
+{
+    std::cout << "In callback" << std::endl;
+    std::cout << _msg->DebugString() << std::endl;
+}
 
 namespace gazebo
 {
@@ -32,12 +52,11 @@ class ModelPush : public ModelPlugin
 public:
     
     double angle_to_goal = 0.0;
-    bool once = true;
-
     std::vector <ignition::math::Vector3d> path_points;
     int count = 0;
+
     void Load(physics::ModelPtr _parent, sdf::ElementPtr /*_sdf*/)
-    {
+    {        
         // Store the pointer to the model
         model = _parent;
 
@@ -116,41 +135,160 @@ public:
         model->SetAngularVel(ignition::math::Vector3d(0, 0, 0.0));
         ignition::math::Pose3d pose = model->WorldPose();
         double heading = pose.Rot().Yaw();
-        ignition::math::Vector3d destination_point = this->path_points [count];
+        this->angle_to_goal = std::atan2 ( (_destination_point.Y() - pose.Pos().Y()), (_destination_point.X() - pose.Pos().X()) );
+        if (false)
+        {
+            _destination_point = this->path_points [count];
+            
+            if ( angle_to_goal - heading > 0.05  )
+            {
+                model->SetAngularVel(ignition::math::Vector3d(0.0, 0.0, 1.0));
+            }
+            else if ( angle_to_goal - heading < -0.05 )
+            {
+                model->SetAngularVel(ignition::math::Vector3d(0.0, 0.0, -1.0));
+            }   
+            else if ( this->get_euclidean_distance ( pose.Pos(), _destination_point ) > 0.1 && count < this->path_points.size() )
+            {
+                pose = model->WorldPose();
+                model->SetLinearVel(ignition::math::Vector3d(1.0 * std::cos (angle_to_goal), 1.0 * std::sin ( angle_to_goal ), 0));
+            }
+            else
+            {
+                model->SetLinearVel(ignition::math::Vector3d(0.0, 0.0, 0));
+                count ++;
+            }
+            if ( count == this->path_points.size())
+            {
+                std::cout << "We are in the goal !!" << std::endl;
+                model->SetLinearVel(ignition::math::Vector3d(0.0, 0.0, 0));
+                model->SetAngularVel(ignition::math::Vector3d(0, 0, 0.0));
+                exit (0);
+            }
+        } else
+        {
+            // get ray sensor
+            sensors::SensorPtr model_sensor = sensors::SensorManager::Instance()->GetSensor("default::pioneer::hokuyo::link::laser");
+            sensors::RaySensorPtr ray_sensor = std::dynamic_pointer_cast<sensors::RaySensor>(model_sensor);
 
-        this->angle_to_goal = std::atan2 ( (destination_point.Y() - pose.Pos().Y()), (destination_point.X() - pose.Pos().X()) );
-        
-        if ( angle_to_goal - heading > 0.05  )
-        {
-            model->SetAngularVel(ignition::math::Vector3d(0.0, 0.0, 1.0));
-        }
-        else if ( angle_to_goal - heading < -0.05 )
-        {
-            model->SetAngularVel(ignition::math::Vector3d(0.0, 0.0, -1.0));
-        }   
-        else if ( this->get_euclidean_distance ( pose.Pos(), destination_point ) > 0.1 && count < this->path_points.size() )
-        {
-            pose = model->WorldPose();
-            model->SetLinearVel(ignition::math::Vector3d(1.0 * std::cos (angle_to_goal), 1.0 * std::sin ( angle_to_goal ), 0));
-        }
-        else
-        {
-            model->SetLinearVel(ignition::math::Vector3d(0.0, 0.0, 0));
-            count ++;
-        }
+            // default/hokuyo/link/laser/scan
+            // sensors::SensorPtr model_sensor = sensors::SensorManager::Instance()->GetSensor("default::pioneer::link::laser");
+            // std::cout << "Angle max: " << ray_sensor->AngleMax() << std::endl;
+            // std::cout << "Angle min: " << ray_sensor->AngleMin() << std::endl;
+            // std::cout << "Range 0: " << ray_sensor->Range (0) << std::endl;
+            // std::cout << "Range 639: " << ray_sensor->Range (639) << std::endl;
+            // std::cout << "RangeResolution: " << ray_sensor->RangeResolution() << std::endl;
+            // std::cout << "AngleResolution: " << ray_sensor->AngleResolution() << std::endl;
 
-        if ( count == this->path_points.size())
-        {
-            std::cout << "We are in the goal !!" << std::endl;
-            exit (0);
+            _destination_point = ignition::math::Vector3d ( 12.5, 14.5, 0 );
+            ray_sensor->Ranges ( _ranges_vector );
+
+            if ( _ranges_vector.size() > 0 )
+            {
+                if ( this->get_euclidean_distance ( pose.Pos(), _destination_point ) < 0.1 )
+                {
+                    std::cout << "We are in the goal !!" << std::endl;
+                    model->SetLinearVel(ignition::math::Vector3d(0.0, 0.0, 0));
+                    model->SetAngularVel(ignition::math::Vector3d(0, 0, 0.0));
+                    exit (0);
+                }
+                else if ( this->some_in_min_value ( -85.0, 0.0, 0.25 ) ) // obstaculo delante derecha
+                {
+                    std::cout << "Girando a +Z | obs delante derecha" << std::endl;
+                    model->SetLinearVel(ignition::math::Vector3d(0.0, 0.0, 0));
+                    model->SetAngularVel(ignition::math::Vector3d(0.0, 0.0, 2.0));
+                }
+                else if ( this->all_in_min_value ( -92.0, -88.0, 0.6 ) ) // obstaculo derecha
+                {
+                    std::cout << "Go headings | obstaculo a la derecha" << std::endl;
+                    model->SetLinearVel(ignition::math::Vector3d(2.0 * std::cos (heading), 2.0 * std::sin ( heading ), 0));
+                    model->SetAngularVel(ignition::math::Vector3d(0.0, 0.0, 0.0));
+                }
+                else if (this->some_in_min_value ( 0.0, 85.0, 0.25 ))
+                {
+                    std::cout << "Girando a -Z | obs delante izquierda" << std::endl;
+                    model->SetLinearVel(ignition::math::Vector3d(0.0, 0.0, 0));
+                    model->SetAngularVel(ignition::math::Vector3d(0.0, 0.0, -2.0));
+                }
+                else if ( this->all_in_min_value ( 88.0, 92.0, 0.6 ) ) // obstaculo izquierda
+                {
+                    std::cout << "Go headings | obstaculo izquierda" << std::endl;
+                    model->SetLinearVel(ignition::math::Vector3d(2.0 * std::cos (heading), 2.0 * std::sin ( heading ), 0));
+                    model->SetAngularVel(ignition::math::Vector3d(0.0, 0.0, 0.0));
+                }
+                else if ( angle_to_goal - heading > 0.05  )
+                {
+                    std::cout << "Girando +Z hacia goal" << std::endl;
+                    model->SetLinearVel(ignition::math::Vector3d(0.0, 0.0, 0));
+                    model->SetAngularVel(ignition::math::Vector3d(0.0, 0.0, 2.0));
+                }
+                else if ( angle_to_goal - heading < -0.05 )
+                {
+                    std::cout << "Girando -Z hacia goal" << std::endl;
+                    model->SetLinearVel(ignition::math::Vector3d(0.0, 0.0, 0));
+                    model->SetAngularVel(ignition::math::Vector3d(0.0, 0.0, -2.0));
+                }
+                else
+                {
+                    std::cout << "To goal" << std::endl;
+                    model->SetLinearVel(ignition::math::Vector3d(1.0 * std::cos (angle_to_goal), 1.0 * std::sin ( angle_to_goal ), 0));
+                    model->SetAngularVel(ignition::math::Vector3d(0.0, 0.0, 0.0));
+                }
+            }
         }
-        this->once = false;
         
+    }
+
+    bool all_in_min_value ( float start_angle, float end_angle, float distance = 0.3 )
+    {
+        int start = static_cast<int> ( (std::abs(start_angle + 130)) / this->_laser_resolution ) - 1;
+        int end = static_cast<int> ( (std::abs(end_angle + 130)) / this->_laser_resolution ) - 1;
+        for (size_t i = start; i <= end; i++)
+        {
+            if ( _ranges_vector[i] > distance )
+            {
+                return false;
+            }
+        }
+        return true; // todos a una distance menor que 0.3
+    }
+    // bool some_in_min_value ( size_t start, size_t end )
+    // {
+    //     for (size_t i = start; i <= end; i++)
+    //     {
+    //         if ( _ranges_vector[i] <= 0.3 )
+    //         {
+    //             return true;
+    //         }
+    //     }
+    //     return false; // todos a una distance mayor que 0.3
+    // }
+
+    bool some_in_min_value ( float start_angle, float end_angle, float distance = 0.3 )
+    {
+        
+        int start = static_cast<int> ( (std::abs(start_angle + 130)) / this->_laser_resolution ) - 1;
+        int end = static_cast<int> ( (std::abs(end_angle + 130)) / this->_laser_resolution ) - 1;
+        for (int i = start; i <= end; i++)
+        {
+            if ( _ranges_vector[i] <= distance )
+            {
+                return true;
+            }
+        }
+        return false; // todos a una distance mayor que 0.3
     }
 
 private:
     physics::ModelPtr model; // Pointer to the model
     event::ConnectionPtr updateConnection; // Pointer to the update event connection
+    transport::NodePtr gzNode;
+
+    ignition::math::Vector3d _destination_point;
+    std::vector <double> _ranges_vector;
+
+    float _laser_resolution = 260.0 / 640.0; // [º/por laser]
+
 };
 
 // Register this plugin with the simulator

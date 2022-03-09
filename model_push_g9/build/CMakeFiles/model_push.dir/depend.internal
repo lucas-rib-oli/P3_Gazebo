@@ -56,6 +56,7 @@ CMakeFiles/model_push.dir/model_push.cc.o
  /usr/include/gazebo-9/gazebo/common/common.hh
  /usr/include/gazebo-9/gazebo/common/ffmpeg_inc.h
  /usr/include/gazebo-9/gazebo/gazebo.hh
+ /usr/include/gazebo-9/gazebo/gazebo_client.hh
  /usr/include/gazebo-9/gazebo/gazebo_config.h
  /usr/include/gazebo-9/gazebo/gazebo_core.hh
  /usr/include/gazebo-9/gazebo/msgs/MessageTypes.hh
@@ -246,7 +247,33 @@ CMakeFiles/model_push.dir/model_push.cc.o
  /usr/include/gazebo-9/gazebo/physics/WorldState.hh
  /usr/include/gazebo-9/gazebo/physics/physics.hh
  /usr/include/gazebo-9/gazebo/rendering/RenderTypes.hh
+ /usr/include/gazebo-9/gazebo/sensors/AltimeterSensor.hh
+ /usr/include/gazebo-9/gazebo/sensors/CameraSensor.hh
+ /usr/include/gazebo-9/gazebo/sensors/ContactSensor.hh
+ /usr/include/gazebo-9/gazebo/sensors/DepthCameraSensor.hh
+ /usr/include/gazebo-9/gazebo/sensors/ForceTorqueSensor.hh
+ /usr/include/gazebo-9/gazebo/sensors/GaussianNoiseModel.hh
+ /usr/include/gazebo-9/gazebo/sensors/GpsSensor.hh
+ /usr/include/gazebo-9/gazebo/sensors/GpuRaySensor.hh
+ /usr/include/gazebo-9/gazebo/sensors/ImuSensor.hh
+ /usr/include/gazebo-9/gazebo/sensors/LogicalCameraSensor.hh
+ /usr/include/gazebo-9/gazebo/sensors/MagnetometerSensor.hh
+ /usr/include/gazebo-9/gazebo/sensors/MultiCameraSensor.hh
+ /usr/include/gazebo-9/gazebo/sensors/Noise.hh
+ /usr/include/gazebo-9/gazebo/sensors/RFIDSensor.hh
+ /usr/include/gazebo-9/gazebo/sensors/RFIDTag.hh
+ /usr/include/gazebo-9/gazebo/sensors/RaySensor.hh
+ /usr/include/gazebo-9/gazebo/sensors/Sensor.hh
+ /usr/include/gazebo-9/gazebo/sensors/SensorFactory.hh
+ /usr/include/gazebo-9/gazebo/sensors/SensorManager.hh
  /usr/include/gazebo-9/gazebo/sensors/SensorTypes.hh
+ /usr/include/gazebo-9/gazebo/sensors/SensorsIface.hh
+ /usr/include/gazebo-9/gazebo/sensors/SonarSensor.hh
+ /usr/include/gazebo-9/gazebo/sensors/WideAngleCameraSensor.hh
+ /usr/include/gazebo-9/gazebo/sensors/WirelessReceiver.hh
+ /usr/include/gazebo-9/gazebo/sensors/WirelessTransceiver.hh
+ /usr/include/gazebo-9/gazebo/sensors/WirelessTransmitter.hh
+ /usr/include/gazebo-9/gazebo/sensors/sensors.hh
  /usr/include/gazebo-9/gazebo/transport/CallbackHelper.hh
  /usr/include/gazebo-9/gazebo/transport/Connection.hh
  /usr/include/gazebo-9/gazebo/transport/ConnectionManager.hh
