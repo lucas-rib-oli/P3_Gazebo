@@ -222,7 +222,6 @@ def dumpPathImage (charMap, nodes, goalParentId, vwriter, args):
    
     gridMapImage_resized = cv2.resize (gridMapImage, (400, 500))
     path2save = os.path.join ( os.getcwd(), 'images/' + args.algorithm + '_path_planning.png' )
-    print ('path2save: ', path2save)
     cv2.imshow('Grid Map Image', gridMapImage_resized)
     cv2.imwrite ( path2save, gridMapImage_resized )
     
@@ -604,7 +603,7 @@ def main ():
     parser.add_argument("--start_y", type=int, default=1, help="start coordinate y")
     parser.add_argument("--end_x", type=int, default=12, help="end coordinate x")
     parser.add_argument("--end_y", type=int, default=14, help="end coordinate y")
-    parser.add_argument("-a", "--algorithm", type=str, default="best", help="breadth / depth / best / a_star")
+    parser.add_argument("-a", "--algorithm", type=str, default="a_star", help="breadth / depth / best / a_star")
     parser.add_argument("-n", "--neighbourhood", type=int, default=4, help="4 / 8 neighbourhood to use")
     parser.add_argument("-c", "--cost", type=str, default="euclidean", help="cost fuction to use - euclidean / manhattan")
     parser.add_argument("--viz", type=int, default=1, help="visualization in image")
