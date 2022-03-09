@@ -23,13 +23,18 @@ Para ejecutar el código de planificación de trayectorias:
 ```
 $ mkdir model_push_g9/build & cd build/
 ```
+
+```
 $ make
 ```
+
 ## Ejecución:
 ```
 $ sudo cp libmodel_push.so /usr/lib/x86_64-linux-gnu/gazebo-9/plugins
 ```
+```
 $ cd ~/P3_Gazebo/gazebo-tools-master/
+```
 ```
 $ gazebo map.world.xml --verbose --pause
 ```
